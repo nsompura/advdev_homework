@@ -89,7 +89,7 @@ podTemplate(
       sh "oc delete configmap tasks-config -n sr-tasks-dev --ignore-not-found=true"
       sh "oc create configmap tasks-config --from-file=./configuration/application-users.properties --from-file=./configuration/application-roles.properties -n sr-tasks-dev"
     
-	  sh "oc set env dc/tasks VERSION='${devTag} (tasks-dev)'"
+	  sh "oc set env dc/tasks VERSION='${devTag} (tasks-dev)' -n sr-tasks-dev"
 
       // Deploy the development application.
       // Replace sr-tasks-dev with the name of your production project
