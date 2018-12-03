@@ -133,9 +133,12 @@ podTemplate(
 			sh "oc create configmap ${destApp}-config --from-file=./configuration/application-users.properties --from-file=./configuration/application-roles.properties -n ${GUID}-tasks-prod"
 
 			//sh "oc set env dc/${destApp} VERSION='${prodTag} (${destApp})'"
-            // Set VERSION environment variable
-            openshift.set("env", "dc", "${destApp}", "VERSION='${prodTag} (${destApp})'")
+            //sh "oc set env dc/tasks VERSION='${devTag} (tasks-dev)' -n ${GUID}-tasks-dev"
+
+			// Set VERSION environment variable
+            //openshift.set("env", "dc", "${destApp}", "VERSION='${prodTag} (${destApp})'")
 		  
+		  echo "Setting environment" + '${devTag} (tasks-dev)'
 			// Deploy the inactive application.
 			openshiftDeploy depCfg: destApp, namespace: '${GUID}-tasks-prod', verbose: 'false', waitTime: '', waitUnit: 'sec'
 			openshiftVerifyDeployment depCfg: destApp, namespace: '${GUID}-tasks-prod', replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '', waitUnit: 'sec'
