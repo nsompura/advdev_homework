@@ -132,9 +132,7 @@ podTemplate(
 			sh "oc delete configmap ${destApp}-config -n ${GUID}-tasks-prod --ignore-not-found=true"
 			sh "oc create configmap ${destApp}-config --from-file=./configuration/application-users.properties --from-file=./configuration/application-roles.properties -n ${GUID}-tasks-prod"
 
-			sh "oc set env dc/tasks-blue VERSION='${devTag} (tasks-dev)' -n ${GUID}-tasks-blue"
-
-			sh "oc set env dc/tasks-green VERSION='${devTag} (tasks-dev)' -n ${GUID}-tasks-green"
+			sh "oc set env dc/${destApp} VERSION='${prodTag} (${destApp})'"
 
 		  
 			// Deploy the inactive application.
